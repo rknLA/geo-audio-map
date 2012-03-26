@@ -5,10 +5,13 @@
   AudioLocation = (function() {
 
     function AudioLocation(map, tracker) {
+      this.zoneExited = __bind(this.zoneExited, this);
+      this.zoneEntered = __bind(this.zoneEntered, this);
       this.audioLocationChanged = __bind(this.audioLocationChanged, this);      this.map = map;
       this.tracker = tracker;
       this.radius = 5;
       google.maps.event.addListener(map, 'click', this.audioLocationChanged);
+      this.sound = document.getElementById('example_sound');
     }
 
     AudioLocation.prototype.audioLocationChanged = function(event) {
@@ -45,11 +48,13 @@
     };
 
     AudioLocation.prototype.zoneEntered = function() {
-      return alert("audio should play now");
+      alert("gonna play some music!");
+      return this.sound.play();
     };
 
     AudioLocation.prototype.zoneExited = function() {
-      return alert("audio should stop maybe?");
+      alert("gonna stop the music");
+      return this.sound.pause();
     };
 
     return AudioLocation;

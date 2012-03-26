@@ -8,7 +8,7 @@
       this.updateCurrentLocation = __bind(this.updateCurrentLocation, this);      this.element = document.getElementById(element_id);
       this.options = {
         center: new google.maps.LatLng(34.0493444167395, -118.239059513545),
-        zoom: 12,
+        zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       this.map = new google.maps.Map(this.element, this.options);

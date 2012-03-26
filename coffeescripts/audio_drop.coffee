@@ -4,6 +4,7 @@ class AudioLocation
     @tracker = tracker
     @radius = 5 #in meters
     google.maps.event.addListener map, 'click', @audioLocationChanged
+    @sound = document.getElementById('example_sound')
     
   audioLocationChanged: (event) =>
     @latLng = event.latLng
@@ -34,11 +35,13 @@ class AudioLocation
     if @circle
       @circle.setRadius(@radius)
 
-  zoneEntered: () ->
-    alert "audio should play now"
+  zoneEntered: () =>
+    alert "gonna play some music!"
+    @sound.play()
 
-  zoneExited: () ->
-    alert "audio should stop maybe?"
+  zoneExited: () =>
+    alert "gonna stop the music"
+    @sound.pause()
 
 
 
