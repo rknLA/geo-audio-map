@@ -4,15 +4,14 @@
 
   AudioLocation = (function() {
 
-    function AudioLocation(map) {
+    function AudioLocation(map, tracker) {
       this.audioLocationChanged = __bind(this.audioLocationChanged, this);      this.map = map;
-      console.log(map);
+      this.tracker = tracker;
       this.radius = 5;
       google.maps.event.addListener(map, 'click', this.audioLocationChanged);
     }
 
     AudioLocation.prototype.audioLocationChanged = function(event) {
-      console.log(event.latLng);
       this.latLng = event.latLng;
       if (!this.marker) {
         this.marker = new google.maps.Marker({
@@ -20,8 +19,10 @@
           title: 'Audio HotSpot',
           position: this.latLng
         });
+        this.tracker.addZone("audio", this.latLng, this.radius, this.zoneEntered, this.zoneExited);
       } else {
         this.marker.setPosition(event.latLng);
+        this.tracker.changeZone("audio", this.latLng, this.radius, this.zoneEntered, this.zoneExited);
       }
       if (!this.circle) {
         return this.circle = new google.maps.Circle({

@@ -74,62 +74,57 @@
     };
 
     GeoTracker.prototype._check_location_for_zones = function() {
-      var currLatLng, ix, nextZones, oldZone, zone, zoneName, _i, _j, _k, _len, _len2, _len3, _ref, _ref2, _results;
+      var currLatLng, details, distance_from_zone, ix, nextZones, oldZone, zone, zoneName, _i, _j, _len, _len2, _ref, _ref2;
       nextZones = [];
       currLatLng = new google.maps.LatLng(this.current.lat, this.current.lng);
       _ref = this.zones;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        zone = _ref[_i];
-        console.log(zone.radius);
-        console.log(zone.latLng);
-        if (zone.radius <= google.maps.geometry.spherical.computeDistanceBetween(currLatLng, zone.latLng)) {
-          nextZones.push(zone.name);
-        }
+      for (zone in _ref) {
+        details = _ref[zone];
+        distance_from_zone = google.maps.geometry.spherical.computeDistanceBetween(currLatLng, details.latLng);
+        if (distance_from_zone <= details.radius) nextZones.push(zone);
       }
-      console.log(nextZones);
-      for (_j = 0, _len2 = nextZones.length; _j < _len2; _j++) {
-        zoneName = nextZones[_j];
+      for (_i = 0, _len = nextZones.length; _i < _len; _i++) {
+        zoneName = nextZones[_i];
         ix = this._current_zones.indexOf(zoneName);
         if (ix > -1) {
           this._current_zones.splice(ix, 1);
         } else {
-          this.zones.zoneName.enterZoneCallback();
+          this.zones[zoneName].enterZoneCallback();
         }
       }
       _ref2 = this._current_zones;
-      _results = [];
-      for (_k = 0, _len3 = _ref2.length; _k < _len3; _k++) {
-        oldZone = _ref2[_k];
-        _results.push(this.zones.oldZone.exitZoneCallback());
+      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
+        oldZone = _ref2[_j];
+        this.zones[oldZone].exitZoneCallback();
       }
-      return _results;
+      return this._current_zones = nextZones;
     };
 
     GeoTracker.prototype.addZone = function(name, latLng, radius, enterZoneCallback, exitZoneCallback) {
-      if (this.zones.name) {
-        console.long("couldn't add zone, existing zone with same name already exists");
+      if (this.zones[name]) {
+        console.log("couldn't add zone, existing zone with same name already exists");
         return;
       }
-      return this.zones.name = {
+      return this.zones[name] = {
         latLng: latLng,
         radius: radius,
-        enterZone: enterZoneCallback,
-        exitZone: exitZoneCallback
+        enterZoneCallback: enterZoneCallback,
+        exitZoneCallback: exitZoneCallback
       };
     };
 
     GeoTracker.prototype.changeZone = function(name, newLatLng, newRadius, newEnterZoneCallback, newExitZoneCallback) {
-      return this.zones.name = {
+      return this.zones[name] = {
         latLng: newLatLng,
         radius: newRadius,
-        enterZone: newEnterZoneCallback,
-        exitZone: newExitZoneCallback
+        enterZoneCallback: newEnterZoneCallback,
+        exitZoneCallback: newExitZoneCallback
       };
     };
 
     GeoTracker.prototype.deleteZone = function(name) {
-      if (this.zones.name) {
-        return delete this.zones.name;
+      if (this.zones[name]) {
+        return delete this.zones[name];
       } else {
         return console.log("couldn't delete zone " + name);
       }

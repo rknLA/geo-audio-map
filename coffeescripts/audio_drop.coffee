@@ -1,20 +1,21 @@
 class AudioLocation
-  constructor: (map) ->
+  constructor: (map, tracker) ->
     @map = map
-    console.log map
+    @tracker = tracker
     @radius = 5 #in meters
     google.maps.event.addListener map, 'click', @audioLocationChanged
     
   audioLocationChanged: (event) =>
-    console.log event.latLng
     @latLng = event.latLng
-    if !@marker
+    if !@marker #first click, add zone
       @marker = new google.maps.Marker
         map: @map
         title: 'Audio HotSpot'
         position: @latLng
+      @tracker.addZone "audio", @latLng, @radius, @zoneEntered, @zoneExited
     else
       @marker.setPosition event.latLng
+      @tracker.changeZone "audio", @latLng, @radius, @zoneEntered, @zoneExited
     if !@circle
       @circle = new google.maps.Circle
         map: @map

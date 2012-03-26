@@ -63,12 +63,10 @@ class GeoTracker
     #get zones for current location
     nextZones = []
     currLatLng = new google.maps.LatLng(@current.lat, @current.lng)
-    for zone in @zones
-      console.log zone.radius
-      console.log zone.latLng
-      if zone.radius <= google.maps.geometry.spherical.computeDistanceBetween(currLatLng, zone.latLng)
-        nextZones.push zone.name
-    console.log nextZones
+    for zone, details of @zones
+      distance_from_zone = google.maps.geometry.spherical.computeDistanceBetween(currLatLng, details.latLng)
+      if distance_from_zone <= details.radius
+        nextZones.push zone
 
     #compare current zones with zones for last location and call enter/exit callbacks as appropriate
     for zoneName in nextZones
@@ -76,32 +74,34 @@ class GeoTracker
       if ix > -1 #it's in the array
         @_current_zones.splice(ix, 1) #still in the zone. remove it from current zones so we don't call the exit callback later
       else
-        @zones.zoneName.enterZoneCallback()
+        @zones[zoneName].enterZoneCallback()
 
     for oldZone in @_current_zones
-      @zones.oldZone.exitZoneCallback()
+      @zones[oldZone].exitZoneCallback()
+
+    @_current_zones = nextZones
 
 
   addZone: (name, latLng, radius, enterZoneCallback, exitZoneCallback) ->
-    if @zones.name
-      console.long "couldn't add zone, existing zone with same name already exists"
+    if @zones[name]
+      console.log "couldn't add zone, existing zone with same name already exists"
       return
-    @zones.name = 
+    @zones[name] =
       latLng: latLng
       radius: radius
-      enterZone: enterZoneCallback
-      exitZone: exitZoneCallback
+      enterZoneCallback: enterZoneCallback
+      exitZoneCallback: exitZoneCallback
 
   changeZone: (name, newLatLng, newRadius, newEnterZoneCallback, newExitZoneCallback) ->
-    @zones.name = 
+    @zones[name] =
       latLng: newLatLng
       radius: newRadius
-      enterZone: newEnterZoneCallback
-      exitZone: newExitZoneCallback
+      enterZoneCallback: newEnterZoneCallback
+      exitZoneCallback: newExitZoneCallback
 
   deleteZone: (name) ->
-    if @zones.name
-      delete @zones.name
+    if @zones[name]
+      delete @zones[name]
     else
       console.log "couldn't delete zone " + name
       

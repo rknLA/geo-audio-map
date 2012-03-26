@@ -6,7 +6,7 @@
     window.map = new GeoMap('map_canvas');
     window.map.followMe = true;
     window.tracker.startTracking(window.map.updateCurrentLocation);
-    return window.sound_spot = new AudioLocation(window.map.map);
+    return window.sound_spot = new AudioLocation(window.map.map, window.tracker);
   };
 
   window.initialize_map = initialize_map;
