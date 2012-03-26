@@ -33,6 +33,12 @@ class AudioLocation
     if @circle
       @circle.setRadius(@radius)
 
+  zoneEntered: () ->
+    alert "audio should play now"
+
+  zoneExited: () ->
+    alert "audio should stop maybe?"
+
 
 
 window.AudioLocation = AudioLocation

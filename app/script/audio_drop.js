@@ -43,6 +43,14 @@
       if (this.circle) return this.circle.setRadius(this.radius);
     };
 
+    AudioLocation.prototype.zoneEntered = function() {
+      return alert("audio should play now");
+    };
+
+    AudioLocation.prototype.zoneExited = function() {
+      return alert("audio should stop maybe?");
+    };
+
     return AudioLocation;
 
   })();

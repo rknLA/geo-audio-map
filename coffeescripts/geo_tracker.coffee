@@ -6,6 +6,13 @@ class GeoTracker
       @enabled = true
     else
       @enabled = false
+
+    @_tracking_watch = 0
+    @_user_success_callback = null
+    @_user_err_callback = null
+    @zones = {}
+    @_current_zones = []
+
     
   current:
     lat: 34.0493444167395
@@ -13,14 +20,10 @@ class GeoTracker
     LatLng: () ->
       new google.maps.LatLng(@lat, @lng)
 
-  _tracking_watch: 0
-  _user_success_callback: null
-  _user_err_callback: null
-
   _success_callback: (position) =>
     @current.lat = position.coords.latitude
     @current.lng = position.coords.longitude
-    console.log "position updated"
+    @_check_location_for_zones()
     if @user_success_callback
       @user_success_callback(position)
 
@@ -55,6 +58,54 @@ class GeoTracker
     navigator.geolocation.clearWatch(@_tracking_watch)
     @tracking = false
     console.log "stop tracking"
+
+  _check_location_for_zones: () ->
+    #get zones for current location
+    nextZones = []
+    currLatLng = new google.maps.LatLng(@current.lat, @current.lng)
+    for zone in @zones
+      console.log zone.radius
+      console.log zone.latLng
+      if zone.radius <= google.maps.geometry.spherical.computeDistanceBetween(currLatLng, zone.latLng)
+        nextZones.push zone.name
+    console.log nextZones
+
+    #compare current zones with zones for last location and call enter/exit callbacks as appropriate
+    for zoneName in nextZones
+      ix = @_current_zones.indexOf(zoneName)
+      if ix > -1 #it's in the array
+        @_current_zones.splice(ix, 1) #still in the zone. remove it from current zones so we don't call the exit callback later
+      else
+        @zones.zoneName.enterZoneCallback()
+
+    for oldZone in @_current_zones
+      @zones.oldZone.exitZoneCallback()
+
+
+  addZone: (name, latLng, radius, enterZoneCallback, exitZoneCallback) ->
+    if @zones.name
+      console.long "couldn't add zone, existing zone with same name already exists"
+      return
+    @zones.name = 
+      latLng: latLng
+      radius: radius
+      enterZone: enterZoneCallback
+      exitZone: exitZoneCallback
+
+  changeZone: (name, newLatLng, newRadius, newEnterZoneCallback, newExitZoneCallback) ->
+    @zones.name = 
+      latLng: newLatLng
+      radius: newRadius
+      enterZone: newEnterZoneCallback
+      exitZone: newExitZoneCallback
+
+  deleteZone: (name) ->
+    if @zones.name
+      delete @zones.name
+    else
+      console.log "couldn't delete zone " + name
+      
+
 
 
 window.GeoTracker = GeoTracker
