@@ -13,6 +13,7 @@
       };
       this.map = new google.maps.Map(this.element, this.options);
       this.followMe = false;
+      this.markers = [];
     }
 
     GeoMap.prototype.showMeMarker = function(position) {

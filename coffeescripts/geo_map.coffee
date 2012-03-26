@@ -7,6 +7,7 @@ class GeoMap
       mapTypeId: google.maps.MapTypeId.ROADMAP
     @map = new google.maps.Map @element, @options
     @followMe = false
+    @markers = []
 
   showMeMarker: (position) ->
     if !@me_marker
