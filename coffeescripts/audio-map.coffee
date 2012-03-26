@@ -13,6 +13,11 @@ jQuery ->
   $('#radius').change (event) ->
     console.log event.currentTarget.value
     window.sound_spot.setRadius parseInt(event.currentTarget.value)
+  setTimeout () ->
+    window.scrollTo(0,10)
+  , 10
+  document.getElementById('example_sound').addEventListener 'oncanplaythrough', () ->
+      $('#audio_status').text('Audio is done bufferring now!')
 
 
 

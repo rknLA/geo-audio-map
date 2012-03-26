@@ -12,9 +12,15 @@
   window.initialize_map = initialize_map;
 
   jQuery(function() {
-    return $('#radius').change(function(event) {
+    $('#radius').change(function(event) {
       console.log(event.currentTarget.value);
       return window.sound_spot.setRadius(parseInt(event.currentTarget.value));
+    });
+    setTimeout(function() {
+      return window.scrollTo(0, 10);
+    }, 10);
+    return document.getElementById('example_sound').addEventListener('oncanplaythrough', function() {
+      return $('#audio_status').text('Audio is done bufferring now!');
     });
   });
 

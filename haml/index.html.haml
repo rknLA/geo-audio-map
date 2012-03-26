@@ -1,6 +1,9 @@
 !!!5
 %head
-  %meta{name: 'viewport', content: 'initial-scale=1.0, user-scalable=no'}
+  %meta{name: 'viewport', content: 'width=device-width; height=device-height; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;'}
+  %meta{name: 'apple-mobile-web-app-capable', content: 'yes'}
+  %meta{name: 'apple-touch-fullscreen', content: 'yes'}
+  %meta{name: 'apple-mobile-web-app-status-bar-style', content: 'black'}
   %title Audio Map
 
   %link{ type: 'text/css', rel: 'stylesheet', href: 'style/audio-map.css' }
@@ -16,9 +19,10 @@
   #map_canvas{:style => "width: 100%; height: 100%"}
   #overlay
     %p
-      Click somewhere on the map to drop the soundbyte on that location
+      Tap a place on the map to drop the song there
     %label{:for => 'radius'} Radius (in meters)
     %input#radius{:name => 'radius', :type => 'number', :value => 5}
+    -#%p#audio_status Audio is not finished loading.
   %audio#example_sound{:preload => 'auto', :src => 'audio/gimme_danger.mp3'}
     
 
