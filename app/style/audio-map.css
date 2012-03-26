@@ -1,0 +1,29 @@
+/* line 1, ../../scss/audio-map.sass */
+html {
+  height: 100%;
+}
+
+/* line 4, ../../scss/audio-map.sass */
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 10, ../../scss/audio-map.sass */
+#overlay {
+  color: white;
+  z-index: 20;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  bottom: 0px;
+  background-color: black;
+  opacity: 0.8;
+  text-align: center;
+}
+/* line 21, ../../scss/audio-map.sass */
+#overlay p, #overlay span, #overlay div {
+  opacity: 1;
+}
