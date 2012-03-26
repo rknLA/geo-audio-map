@@ -36,11 +36,9 @@ class AudioLocation
       @circle.setRadius(@radius)
 
   zoneEntered: () =>
-    alert "gonna play some music!"
     @sound.play()
 
   zoneExited: () =>
-    alert "gonna stop the music"
     @sound.pause()
 
 

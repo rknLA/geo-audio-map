@@ -18,6 +18,8 @@ jQuery ->
   , 10
   document.getElementById('example_sound').addEventListener 'oncanplaythrough', () ->
       $('#audio_status').text('Audio is done bufferring now!')
+  $('#play_audio').click (event) ->
+    document.getElementById('example_sound').load()
 
 
 

@@ -19,8 +19,11 @@
     setTimeout(function() {
       return window.scrollTo(0, 10);
     }, 10);
-    return document.getElementById('example_sound').addEventListener('oncanplaythrough', function() {
+    document.getElementById('example_sound').addEventListener('oncanplaythrough', function() {
       return $('#audio_status').text('Audio is done bufferring now!');
+    });
+    return $('#play_audio').click(function(event) {
+      return document.getElementById('example_sound').load();
     });
   });
 

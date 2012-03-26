@@ -48,12 +48,10 @@
     };
 
     AudioLocation.prototype.zoneEntered = function() {
-      alert("gonna play some music!");
       return this.sound.play();
     };
 
     AudioLocation.prototype.zoneExited = function() {
-      alert("gonna stop the music");
       return this.sound.pause();
     };
 
