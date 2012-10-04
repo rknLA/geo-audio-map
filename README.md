@@ -1,5 +1,5 @@
-Audio Map prototype
-===================
+# Audio Map prototype
+
 
 I built this project as a proof-of-concept during the design phases of [Made in LA Soundmap](http://itunes.apple.com/us/app/made-in-la-soundmap/id525895329) to experiment with how well web-apps handle geolocation and audio streaming.
 
@@ -10,31 +10,35 @@ The app structure is something I stole from stevegraham's [JPC2000](http://jpc.h
 
 The final result (or at least, the only result that mattered to us) lives at http://geo.rkn.la/audio.
 
-Running the App
----------------
+## Running the App
+
 Your best bet is to use Ruby 1.9, as I haven't tested things on earlier versions.
  * bundle install
  * ruby app.js
  * guard
+
 You may also want to run guard in a separate tab to avoid cluttering the server logs with guard logs.
 
-MP3
----
+## MP3
+
 To keep this repo's size down, I've removed the mp3 associated with the example.  Add your own mp3 file to the app/audio directory and update the src url of the audio tag in `haml/index.html.haml`
 
 
-The proof of concept test
-=========================
+***
 
-Goals
------
+# The proof of concept test
+
+
+
+## Goals
+
  * Trigger some form of audio control based on the user's location
  * Explore behavior of background audio in a web app.
  * Explore behavior of background geolocation in a web app.
  * Be flexible enough that the tester's location does not matter.
 
-Instructions
-------------
+## Instructions
+
  1. Open the app's url in your mobile device's browser.
  2. Allow the website to access your location.
  3. Kick the audio engine (by tapping on the link).
@@ -45,8 +49,8 @@ Instructions
 If you've done all of this correctly, you should hear a song start to play when you cross the fence, and her it turn off when you leave.
 
 
-Results
--------
+## Results
+
 
 Note: we all had iPhones throughout this process, so that's what we tested on.  Things may be slightly different on other platforms.
 
@@ -65,8 +69,8 @@ When you reopen the webpage and the location updates, the app finally realizes y
 What does this mean?  Just that web apps using geolocation don't get geolocation updates while they're in the background.  No big deal, really, unless what you're trying to do is use geolocation in the background to change audio... ;)
 
 
-Errata / Etc.
--------------
+## Errata / Etc.
+
 
 The css isn't really perfect, and the usability related to updating the map's center position is a little wonky, but I was focused purely on the goals.  In the context of the few hours I spend building this, once I had satisfied the research requirements, I let the project go and didn't worry about tidying it up.
 
