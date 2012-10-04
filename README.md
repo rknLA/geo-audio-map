@@ -5,7 +5,7 @@ I built this project as a proof-of-concept during the design phases of [Made in 
 
 The results were enlightening, but a bit of a let-down.  Our original goal was to do Soundmap as a web-app so that cross-platform compatibility wouldn't be an issue, but this prototype was enough to show us that what we wanted to do was not possible on mobile web at the time (March 2012).
 
-The app structure is something I stole from stevegraham's [JPC2000](http://jpc.heroku.com/) [project](https://github.com/stevegraham/JPC2000).  It's an elegant little Sinatra server for static content, but it has guard hooks that allowed me to develop in haml, CoffeeScript, and SCSS.  Since it compiles using guard, I was able to drop the compiled files into a shared host without incurring any unreasonable costs.
+The app structure is something I stole from stevegraham's [JPC2000](http://jpc.heroku.com/) [project](https://github.com/stevegraham/JPC2000).  It's an elegant little Sinatra server for static content, but it has guard hooks that allowed me to develop in haml, CoffeeScript, and SCSS.  Since it compiles using guard, I was able to scp the compiled files into a shared host without dealing with Rails-sized hosting costs or uploading audio files to heroku.
 
 
 The final result (or at least, the only result that mattered to us) lives at http://geo.rkn.la/audio.
