@@ -18,6 +18,13 @@ Your best bet is to use Ruby 1.9, as I haven't tested things on earlier versions
  * guard
 You may also want to run guard in a separate tab to avoid cluttering the server logs with guard logs.
 
+MP3
+---
+To keep this repo's size down, I've removed the mp3 associated with the example.  Add your own mp3 file to the app/audio directory and update the src url of the audio tag in `haml/index.html.haml`
+
+
+The proof of concept test
+=========================
 
 Goals
 -----
